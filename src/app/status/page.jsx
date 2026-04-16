@@ -1,17 +1,27 @@
+
+
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { CallContext } from "../context/CallContextProvider";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Status = () => {
+  const { call = [] } = useContext(CallContext);
+
+
+  const textCount = call.filter((item) => item.type === "text").length;
+  const callCount = call.filter((item) => item.type === "call").length;
+  const videoCount = call.filter((item) => item.type === "video").length;
+
   const data = {
     labels: ["Text", "Call", "Video"],
     datasets: [
       {
-        data: [30, 40, 30],
+        data: [textCount, callCount, videoCount],
         backgroundColor: [
           "#7C3AED", 
           "#064E3B", 
@@ -44,28 +54,32 @@ const Status = () => {
         </h2>
 
         <div className="flex flex-col items-center justify-center">
-        
+
+          
           <div className="w-64 h-64">
             <Doughnut data={data} options={options} />
           </div>
 
           
           <div className="flex gap-6 mt-6 text-sm">
+
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-purple-600"></span>
-              Text
+              Text ({textCount})
             </div>
 
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-green-900"></span>
-              Call
+              Call ({callCount})
             </div>
 
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-green-500"></span>
-              Video
+              Video ({videoCount})
             </div>
+
           </div>
+
         </div>
       </div>
     </div>

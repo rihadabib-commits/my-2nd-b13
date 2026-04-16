@@ -18,7 +18,7 @@ const CardData = () => {
     <div>
       <h1 className="font-bold text-2xl mb-5 pl-20">Your friend</h1>
 
-      <div className="grid grid-cols-4 gap-4 pl-20 pr-20">
+      <div className="grid md:grid-cols-4 sm:grid-cols-1  gap-4 pl-20 pr-20">
         {data.map((item) => (
           
         
@@ -35,6 +35,8 @@ const CardData = () => {
                   className="rounded-full"
                 />
               </figure>
+      
+    
 
               <div className="card-body items-center text-center">
                 <h2 className="font-bold">{item.name}</h2>

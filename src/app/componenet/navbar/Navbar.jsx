@@ -7,56 +7,78 @@ import { CiTimer } from "react-icons/ci";
 import { FaStairs } from "react-icons/fa6";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { HiMenu } from "react-icons/hi";
 
 const Navbar = () => {
   const pathname = usePathname();
 
+  const navItem = [
+    { href: "/", label: "Home", icon: <IoMdHome /> },
+    { href: "/timeline", label: "Timeline", icon: <CiTimer /> },
+    { href: "/status", label: "Status", icon: <FaStairs /> },
+  ];
+
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-md px-4">
+
+      
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl font-bold">
-          <span className="text-[#1f2937]">KeenKeeper</span>
+        <a className="text-xl font-bold text-[#1f2937]">
+          KeenKeeper
         </a>
       </div>
 
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1 text-black flex gap-4">
+      
+      <div className="flex-none lg:hidden dropdown dropdown-end">
+        <label tabIndex={0} className="btn btn-ghost">
+          <HiMenu size={22} />
+        </label>
 
-          <li>
-            <Link
-              href="/"
-              className={`flex items-center gap-1 ${
-                pathname === "/" ? "bg-green-600 font-bold" : ""
-              }`}
-            >
-              <IoMdHome /> Home
-            </Link>
-          </li>
+        <ul
+          tabIndex={0}
+          className="menu dropdown-content mt-3  p-2 shadow bg-base-100 rounded-box w-52"
+        >
+          {navItem.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className={`flex items-center gap-2 p-2 rounded ${
+                  pathname === item.href
+                    ? "bg-green-600 text-white"
+                    : ""
+                }`}
+              >
+                {item.icon}
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-          <li>
-            <Link
-              href="/timeline"
-              className={`flex items-center gap-1 ${
-                pathname === "/timeline" ? "bg-green-600 font-bold" : ""
-              }`}
-            >
-              <CiTimer /> Timeline
-            </Link>
-          </li>
+      
+      <div className="hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 gap-2">
 
-          <li>
-            <Link
-              href="/status"
-              className={`flex items-center gap-1 ${
-                pathname === "/status" ? "bg-green-600 font-bold" : ""
-              }`}
-            >
-              <FaStairs /> Status
-            </Link>
-          </li>
+          {navItem.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className={`flex items-center gap-1 px-3 py-2 rounded ${
+                  pathname === item.href
+                    ? "bg-green-600 text-white font-semibold"
+                    : "hover:bg-gray-100"
+                }`}
+              >
+                {item.icon}
+                {item.label}
+              </Link>
+            </li>
+          ))}
 
         </ul>
       </div>
+
     </div>
   );
 };
