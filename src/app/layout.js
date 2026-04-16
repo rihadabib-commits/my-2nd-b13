@@ -2,7 +2,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./componenet/navbar/Navbar";
 import Footer from "./componenet/footer/Footer";
-import CallProvider from "./context/CallProvider";
+import Providers from "./liv/providers/Providers";
+import { ToastContainer } from 'react-toastify';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +29,13 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <CallProvider>
+        <Providers>
           <Navbar></Navbar>
           {children}
           <Footer></Footer>
-        </CallProvider>
+          <ToastContainer />
+        </Providers>
+        
       </body>
     </html>
   );
